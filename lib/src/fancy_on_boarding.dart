@@ -21,27 +21,29 @@ class FancyOnBoarding extends StatefulWidget {
   final String skipButtonText;
   final TextStyle skipButtonTextStyle;
   final Color skipButtonColor;
+  final int activeIndex;
   final bool showSkipButton;
   final double bottomMargin;
   final Widget doneButton;
   final Widget skipButton;
 
-  FancyOnBoarding({
-    @required this.pageList,
-    @required this.onDoneButtonPressed,
-    this.onSkipButtonPressed,
-    this.doneButtonText = "Done",
-    this.doneButtonShape,
-    this.doneButtonTextStyle,
-    this.doneButtonBackgroundColor,
-    this.skipButtonText = "Skip",
-    this.skipButtonTextStyle,
-    this.skipButtonColor,
-    this.showSkipButton = true,
-    this.bottomMargin = 8.0,
-    this.doneButton,
-    this.skipButton,
-  }) : assert(pageList.length != 0 && onDoneButtonPressed != null);
+  FancyOnBoarding(
+      {@required this.pageList,
+      @required this.onDoneButtonPressed,
+      this.onSkipButtonPressed,
+      this.doneButtonText = "Done",
+      this.doneButtonShape,
+      this.doneButtonTextStyle,
+      this.doneButtonBackgroundColor,
+      this.skipButtonText = "Skip",
+      this.skipButtonTextStyle,
+      this.skipButtonColor,
+      this.showSkipButton = true,
+      this.bottomMargin = 8.0,
+      this.doneButton,
+      this.skipButton,
+      this.activeIndex = 0})
+      : assert(pageList.length != 0 && onDoneButtonPressed != null);
 
   @override
   _FancyOnBoardingState createState() => _FancyOnBoardingState();
@@ -52,8 +54,8 @@ class _FancyOnBoardingState extends State<FancyOnBoarding>
   StreamController<SlideUpdate> slideUpdateStream;
   AnimatedPageDragger animatedPageDragger;
   List<PageModel> pageList;
-  int activeIndex = 0;
-  int nextPageIndex = 0;
+  int activeIndex = widget.activeIndex;
+  int nextPageIndex = widget.activeIndex;
   SlideDirection slideDirection = SlideDirection.none;
   double slidePercent = 0.0;
 
